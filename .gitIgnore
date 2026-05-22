@@ -1,0 +1,8 @@
+# Dart & Flutter files
+.dart_tool/
+build/
+.pub-cache/
+.pub/
+
+# Mac OS files
+.DS_Store
