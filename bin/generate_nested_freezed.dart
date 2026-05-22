@@ -11,7 +11,7 @@ List<String> generatedDartFiles = [];
 const String currentVersion = '1.0.0';
 // Pastikan file version.txt di repositori cloud Anda HANYA berisi angka versi (contoh: 1.0.1)
 const String versionUrl =
-    'https://raw.githubusercontent.com/[NAMA_ORGANISASI]/taffgen-cli/main/version.txt';
+    'https://raw.githubusercontent.com/affandilham/taffgen-cli/main/version.txt';
 
 Future<void> checkUpdate() async {
   try {
@@ -35,7 +35,7 @@ Future<void> checkUpdate() async {
           ..writeln('Versi Anda saat ini: $currentVersion')
           ..writeln('Jalankan perintah ini di terminal untuk memperbarui:')
           ..writeln(
-            'dart pub global activate --source git https://github.com/[NAMA_ORGANISASI]/taffgen-cli.git',
+            'dart pub global activate --source git https://github.com/affandilham/taffgen-cli.git',
           )
           ..writeln(
             '🌟 ====================================================== 🌟\n',
@@ -245,8 +245,7 @@ Future<String> processObject(
 }) async {
   Directory(folderPath).createSync(recursive: true);
 
-  final fileName =
-      customFileName ??
+  final fileName = customFileName ??
       (autoNamingMode ? toSnakeCase(className) : await askFileName(className));
   final fullPath = '$folderPath/$fileName.dart';
 
@@ -373,8 +372,7 @@ Future<String> processObject(
   // 3. Tulis File Class Freezed
   imports.add("import 'package:freezed_annotation/freezed_annotation.dart';");
   final formattedImports = formatImports(imports);
-  final generatedCode =
-      '''
+  final generatedCode = '''
 $formattedImports
 
 part '$fileName.freezed.dart';
@@ -449,9 +447,8 @@ Future<String> handleNullCatcher(String key, String currentFolder) async {
         stdout.write('Masukkan path ke dummy JSON (misal: dummy.json): ');
         final dummyPath = stdin.readLineSync()?.trim() ?? '';
         filesToCleanup.add(dummyPath);
-        final dJson =
-            jsonDecode(File(dummyPath).readAsStringSync())
-                as Map<String, dynamic>;
+        final dJson = jsonDecode(File(dummyPath).readAsStringSync())
+            as Map<String, dynamic>;
         stdout.write('Nama Class baru: ');
         final cls = stdin.readLineSync()?.trim() ?? 'NewModel';
         stdout.write('Target Folder: ');
@@ -609,8 +606,7 @@ Future<Map<String, Map<String, String>>> handleMarkdownOverride(
     if (k.length > maxKeyLen) maxKeyLen = k.length;
   }
 
-  final mdContent =
-      '''
+  final mdContent = '''
 # 🛠️ TEMPLATE OVERRIDE CLASS FREEZED
 Isi tabel di bawah ini untuk melakukan override tipe data atau converter. 
 - Gunakan tanda `-` jika ingin menggunakan nilai bawaan otomatis (skip).
@@ -739,15 +735,13 @@ String formatImports(Set<String> imports) {
     ..sort();
   final pkg = imports.where((e) => e.startsWith("import 'package:")).toList()
     ..sort();
-  final rel =
-      imports
-          .where(
-            (e) =>
-                !e.startsWith("import 'dart:") &&
-                !e.startsWith("import 'package:"),
-          )
-          .toList()
-        ..sort();
+  final rel = imports
+      .where(
+        (e) =>
+            !e.startsWith("import 'dart:") && !e.startsWith("import 'package:"),
+      )
+      .toList()
+    ..sort();
 
   final result = <String>[];
   if (dart.isNotEmpty) result.add(dart.join('\n'));
