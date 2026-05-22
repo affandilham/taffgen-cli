@@ -62,7 +62,7 @@ void main(List<String> args) async {
       'pub',
       'global',
       'deactivate',
-      'voltunes_cli',
+      'taffgen_cli',
     ]);
 
     if (process.exitCode == 0) {
