@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:async';
 
 import '../services/updater.dart';
+import '../services/build_runner_service.dart';
 import '../generators/freezed_builder.dart';
 import '../utils/formatter.dart';
 
@@ -136,7 +137,7 @@ class TaffGenRunner {
         frameIndex = (frameIndex + 1) % frames.length;
       });
 
-      final result = await Process.run('make', ['bldm']);
+      final result = await BuildRunnerService.buildModels(rootFolder);
 
       timer.cancel();
 
