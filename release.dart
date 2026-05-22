@@ -26,16 +26,17 @@ void main(List<String> args) async {
   File('version.txt').writeAsStringSync(newVersion);
   stdout.writeln('✅ version.txt successfully updated.');
 
-  // 3. Update the variable in generate_nested_freezed.dart
-  final dartFile = File('bin/generate_nested_freezed.dart');
+  // 3. Update the variable in lib/src/services/updater.dart
+  final dartFile = File('lib/src/services/updater.dart');
   if (dartFile.existsSync()) {
     var dartCode = dartFile.readAsStringSync();
     dartCode = dartCode.replaceAll(
-      RegExp(r"const String currentVersion = '.*';"),
-      "const String currentVersion = '$newVersion';",
+      RegExp(r"static const String currentVersion = '.*';"),
+      "static const String currentVersion = '$newVersion';",
     );
     dartFile.writeAsStringSync(dartCode);
-    stdout.writeln('✅ currentVersion variable in Dart file successfully updated.');
+    stdout.writeln(
+        '✅ currentVersion variable in updater.dart successfully updated.');
   }
 
   stdout.writeln(
