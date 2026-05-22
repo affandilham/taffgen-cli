@@ -1,0 +1,7 @@
+name: taff_gen
+description: TaffGen CLI - Super Freezed Model Generator
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+executables:
+  taff-gen: generate_nested_freezed
