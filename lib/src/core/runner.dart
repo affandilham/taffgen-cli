@@ -25,7 +25,9 @@ class TaffGenRunner {
 
     print('🚀 INIT TAFF CLI FREEZED GENERATOR...\n');
 
-    await UpdateService.checkUpdate();
+    if (await UpdateService.checkUpdate()) {
+      return;
+    }
 
     // 1. Deteksi Package Name dari pubspec.yaml
     final pubspecFile = File('pubspec.yaml');
