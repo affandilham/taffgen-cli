@@ -131,9 +131,7 @@ class TaffGenRunner {
 
       print('');
       final timer = Timer.periodic(const Duration(milliseconds: 80), (t) {
-        stdout.write(
-          '\r🔨 Membangun file boilerplate (.freezed.dart & .g.dart) ${frames[frameIndex]}',
-        );
+        stdout.write('\r🔨 Membangun boilerplate... ${frames[frameIndex]}');
         frameIndex = (frameIndex + 1) % frames.length;
       });
 
@@ -142,12 +140,23 @@ class TaffGenRunner {
       timer.cancel();
 
       stdout.write('\r\x1b[K');
-      print('✅ Membangun file boilerplate selesai.');
+      print('✅ Membangun boilerplate selesai.');
       if (result.stdout.toString().isNotEmpty) print(result.stdout);
 
       if (result.exitCode != 0 ||
           result.stderr.toString().toLowerCase().contains('severe')) {
-        print('⚠️ Pesan Build (Error):\n${result.stderr}');
+        print('⚠️ Pesan Build (Error):');
+        if (result.stderr.toString().isNotEmpty) print(result.stderr);
+        if (result.stdout.toString().isNotEmpty) print(result.stdout);
+
+        final combinedOutput =
+            '${result.stdout} ${result.stderr}'.toLowerCase();
+        if (combinedOutput.contains('could not find package') ||
+            combinedOutput.contains('build_runner')) {
+          print(
+              '\n💡 HINT: Pastikan package `build_runner` dan `freezed` sudah ditambahkan di pubspec.yaml project Anda, lalu jalankan `dart pub get` (atau `flutter pub get`).');
+        }
+
         throw Exception(
           'Proses build gagal atau terdapat error (Exit Code: ${result.exitCode}).',
         );

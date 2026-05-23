@@ -14,6 +14,12 @@ class BuildRunnerService {
       'build',
       '--delete-conflicting-outputs'
     ];
+
+    if (Platform.isAndroid ||
+        Platform.environment['PREFIX']?.contains('termux') == true) {
+      buildArgs.add('--force-jit');
+    }
+
     for (final file in errorFiles) {
       buildArgs.add('--build-filter=$file');
     }
