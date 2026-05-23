@@ -129,9 +129,15 @@ class TaffGenRunner {
       final frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
       var frameIndex = 0;
 
+      final isAndroid = Platform.isAndroid ||
+          (Platform.environment['PREFIX']?.contains('termux') == true);
+
       print('');
       final timer = Timer.periodic(const Duration(milliseconds: 80), (t) {
-        stdout.write('\r🔨 Membangun boilerplate... ${frames[frameIndex]}');
+        final msg = isAndroid
+            ? '\r🔨 Building ${frames[frameIndex]}'
+            : '\r🔨 Building boilerplate (.freezed.dart & .g.dart) ${frames[frameIndex]}';
+        stdout.write(msg);
         frameIndex = (frameIndex + 1) % frames.length;
       });
 
@@ -140,7 +146,11 @@ class TaffGenRunner {
       timer.cancel();
 
       stdout.write('\r\x1b[K');
-      print('✅ Membangun boilerplate selesai.');
+      if (isAndroid) {
+        print('✅ Build completed.');
+      } else {
+        print('✅ Boilerplate built successfully.');
+      }
       if (result.stdout.toString().isNotEmpty) print(result.stdout);
 
       if (result.exitCode != 0 ||
