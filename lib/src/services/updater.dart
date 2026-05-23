@@ -51,7 +51,7 @@ class UpdateService {
         'pub',
         'global',
         'deactivate',
-        'taffgen_cli',
+        'taff_gen',
       ]);
 
       if (process.exitCode == 0) {
